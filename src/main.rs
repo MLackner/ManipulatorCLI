@@ -70,6 +70,8 @@ enum Cli {
 }
 
 fn main () {
+    let opt = Cli::from_args();
+
     let container: Container<Manipulator> = unsafe { Container::load("ManipulatorDLL.dll")}.unwrap();
 
     // Initialize the manipulator library. A 0 seems to indicate that the initialization was successful.
@@ -77,8 +79,6 @@ fn main () {
         Ok(_) => (),
         Err(ret) => panic!("Error while initializing. Return Code: {}", ret)
     };
-
-    let opt = Cli::from_args();
 
     let ret: Result<(), i32> = match opt {
         Cli::Move { axis, position } => 
